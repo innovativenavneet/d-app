@@ -10,17 +10,28 @@ import {
   WalletDisconnectButton,
   WalletMultiButton,
 } from "@solana/wallet-adapter-react-ui";
-import { clusterApiUrl } from "@solan/web3.js";
+import { clusterApiUrl } from "@solana/web3.js";
 import "@solana/wallet-adapter-react-ui/styles.css";
 
 //we have to wrap our connetion provvider with three providers
 // connection provider , wallet provider , wallet model provider
 function app() {
-  const network = WalletAdapterNetwork.Devnet;
+  //https://api.testnet.solana.com/
+  const network = WalletAdapterNetwork.Testnet;
+  const endpoint = "https://api.testnet.solana.com/";
+
+
   return (
-    <>
-      <h1>hii navneet solana</h1>
-    </>
+  <ConnectionProvider endpoint={endpoint}>
+    <WalletProvider wallets={[]} autoConnect>
+      <WalletModalProvider>
+      <div style={{display:"flex",justifyContent:"space-between"}}>
+      <WalletMultiButton />
+      <WalletDisconnectButton />
+      </div>
+    </WalletModalProvider>
+    </WalletProvider>
+    </ConnectionProvider>
   );
 }
 
